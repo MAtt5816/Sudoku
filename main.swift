@@ -4,6 +4,7 @@ class Sudoku
 
   init()
   {
+    self.grid = Array(repeating: Array(repeating: 0, count: 9), count: 9)
     generate()
   }
 
