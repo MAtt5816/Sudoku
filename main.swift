@@ -40,7 +40,7 @@ class Sudoku
     }
     if(row != 0)
     {
-      if(!valid_col(col, number))
+      if(!valid_col(row, col, number))
       {
         return false
       }
@@ -65,8 +65,11 @@ class Sudoku
     }
   }
 
-  func valid_col(_ col: Int, _ number: Int) -> Bool
+  func valid_col(_ row: Int, _ col: Int, _ number: Int) -> Bool
   {
+    var row_set = Set<Int>(grid[row])
+    row_set.remove(0)
+    var col_set = Set<Int>()
     for i in 0..<9
     {
       if(grid[i][col] == 0)
@@ -74,6 +77,25 @@ class Sudoku
         break
       }
       else if(grid[i][col] == number)
+      {
+        return false
+      }
+      else
+      {
+        col_set.insert(grid[i][col])
+      }
+    }
+    let common = row_set.intersection(col_set).count
+    if(row_set.count > col_set.count)
+    {
+      if !(common >= (8 - row_set.count) && common <= row_set.count)
+      {
+        return false
+      }
+    }
+    else
+    {
+      if !(common >= (8 - col_set.count) && common <= col_set.count)
       {
         return false
       }
