@@ -88,14 +88,14 @@ class Sudoku
     let common = row_set.intersection(col_set).count
     if(row_set.count > col_set.count)
     {
-      if !(common >= (8 - row_set.count) && common <= row_set.count)
+      if !(common >= (row_set.count - (8 - row_set.count)) && common <= row_set.count)
       {
         return false
       }
     }
     else
     {
-      if !(common >= (8 - col_set.count) && common <= col_set.count)
+      if !(common >= (col_set.count - (8 - col_set.count)) && common <= col_set.count)
       {
         return false
       }
