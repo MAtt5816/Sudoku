@@ -38,9 +38,12 @@ class Sudoku
     {
       return false
     }
-    if(!valid_col(col, number))
+    if(row != 0)
     {
-      return false
+      if(!valid_col(col, number))
+      {
+        return false
+      }
     }
     if(!valid_sq())
     {
@@ -66,7 +69,11 @@ class Sudoku
   {
     for i in 0..<9
     {
-      if(grid[i][col] == number)
+      if(grid[i][col] == 0)
+      {
+        break
+      }
+      else if(grid[i][col] == number)
       {
         return false
       }
