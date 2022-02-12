@@ -19,10 +19,58 @@ class Sudoku
     {
       for col in grid[row].indices
       {
-        grid[row][col] = Int.random(in: 1...9)
+        var isOK: Bool = false
+        while(!isOK){
+          let number = Int.random(in: 1...9)
+          if(validate(row, col, number))
+          {
+            grid[row][col] = number
+            isOK = true
+          }
+        }
       }
     }
   }
+
+  func validate(_ row: Int, _ col: Int, _ number: Int) -> Bool
+  {
+    if(!valid_row(row, number))
+    {
+      return false
+    }
+    if(!valid_col())
+    {
+      return false
+    }
+    if(!valid_sq())
+    {
+      return false
+    }
+    return true
+  }
+
+  func valid_row(_ row: Int, _ number: Int) -> Bool
+  {
+    var tmp_set = Set<Int>(grid[row])
+    if(tmp_set.insert(number).inserted)
+    {
+      return true
+    }
+    else
+    {
+      return false
+    }
+  }
+
+  func valid_col() -> Bool
+  {
+    return true
+  }
+
+  func valid_sq() -> Bool
+  {
+    return true
+  }  
 }
 
 var sudoku = Sudoku()
