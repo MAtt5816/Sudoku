@@ -17,16 +17,32 @@ class Sudoku
   {
     for row in grid.indices
     {
+      var num_list: [Int] = Array(1...9)
       for col in grid[row].indices
       {
+        var num_list_copy: [Int] = num_list
         var isOK: Bool = false
-        while(!isOK){
-          let number = Int.random(in: 1...9)
+        var index: Int?
+        while(!isOK)
+        {
+          let number = num_list_copy.randomElement()
+          index = num_list_copy.firstIndex(of: number?)
           if(validate(row, col, number))
           {
             grid[row][col] = number
             isOK = true
           }
+          else
+          {
+            if(index != nil)
+            {
+              num_list_copy.remove(at: index!)
+            }
+          }
+        }
+        if(index != nil)
+        {
+          num_list.remove(at: index!)
         }
       }
     }
