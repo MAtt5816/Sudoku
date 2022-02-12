@@ -38,7 +38,7 @@ class Sudoku
     {
       return false
     }
-    if(!valid_col())
+    if(!valid_col(col, number))
     {
       return false
     }
@@ -62,8 +62,15 @@ class Sudoku
     }
   }
 
-  func valid_col() -> Bool
+  func valid_col(_ col: Int, _ number: Int) -> Bool
   {
+    for i in 0..<9
+    {
+      if(grid[i][col] == number)
+      {
+        return false
+      }
+    }
     return true
   }
 
