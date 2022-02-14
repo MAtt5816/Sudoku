@@ -45,7 +45,7 @@ class Sudoku
         return false
       }
     }
-    if(!valid_sq())
+    if(!valid_sq(row, col, number))
     {
       return false
     }
@@ -81,7 +81,7 @@ class Sudoku
     return true
   }
 
-  func valid_sq() -> Bool
+  func valid_sq(_ row: Int, _ col: Int, _ number: Int) -> Bool
   {
     return true
   }  
