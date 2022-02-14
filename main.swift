@@ -91,16 +91,8 @@ class Sudoku
     4. 5. 6.
     7. 8. 9.
     */
-    var big_row: Int = row/3
-    var big_col: Int = col/3
-    if row%3 != 0 || row == 0
-    {
-      big_row += 1
-    }
-    if col%3 != 0 || col == 0
-    {
-      big_col += 1
-    }
+    let big_row: Int = row/3+1
+    let big_col: Int = col/3+1
 
     var tmp_set = Set<Int>()
     for r in (big_row*3-3)...(big_row*3-1)
