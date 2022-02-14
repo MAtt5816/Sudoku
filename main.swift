@@ -27,6 +27,7 @@ class Sudoku
           if(validate(row, col, number!))
           {
             grid[row][col] = number!
+            print(number!) //tmp
             isOK = true
           }
         }
@@ -35,6 +36,7 @@ class Sudoku
           list.remove(number!)
         }
       }
+      print(grid[row]) //tmp
     }
   }
 
@@ -91,19 +93,23 @@ class Sudoku
         col_set.insert(grid[i][col])
       }
     }
-    let common = row_set.intersection(col_set).count
-    if(row_set.count > col_set.count)
+    if (row_set.count > 1) && (col_set.count > 4)
     {
-      if !(common >= (row_set.count - (8 - row_set.count)) && common <= row_set.count)
+      let common = row_set.intersection(col_set).count
+      print("cmmn \(common), rows \(row_set.count), cols \(col_set.count)")  //tmp
+      if(row_set.count > col_set.count)
       {
-        return false
+        if !(col_set.count-common <=  row_set.count-(8 - row_set.count))
+        {
+          return false
+        }
       }
-    }
-    else
-    {
-      if !(common >= (col_set.count - (8 - col_set.count)) && common <= col_set.count)
+      else
       {
-        return false
+        if !(row_set.count-common <= col_set.count-(8 - col_set.count))
+        {
+          return false
+        }
       }
     }
     return true
