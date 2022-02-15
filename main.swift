@@ -31,10 +31,26 @@ class Sudoku
             isOK = true
             list.remove(at: list.firstIndex(of: number!)!)
           }
-          else if (counter > (list.count + 3)) && col != 0
+          else if (counter > (list.count * 2)) && col != 0
           {
-            list.insert(grid[row][col-1])
-            grid[row][col-1] = 0
+            if grid[row][col-1] == 0 && col > 1
+            {
+              if grid[row][col-2] == 0 && col > 2
+              {
+                list.insert(grid[row][col-3])
+                grid[row][col-3] = 0
+              }
+              else
+              {
+                list.insert(grid[row][col-2])
+                grid[row][col-2] = 0
+              }
+            }
+            else
+            {
+              list.insert(grid[row][col-1])
+              grid[row][col-1] = 0
+            }
             counter = 0
           }
           else{
