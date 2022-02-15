@@ -17,16 +17,18 @@ class Sudoku
   {
     for row in grid.indices
     {
+      var list = [Int](1...9)
       for col in grid[row].indices
       {
         var isOK: Bool = false
         while(!isOK){
-          let number = Int.random(in: 1...9)
-          if(validate(row, col, number))
+          let number = list.randomElement()
+          if(validate(row, col, number!))
           {
-            grid[row][col] = number
-            print(number) //tmp
+            grid[row][col] = number!
+            print(number!) //tmp
             isOK = true
+            list.remove(at: list.firstIndex(of: number!)!)
           }
         }
       }
