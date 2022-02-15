@@ -21,6 +21,7 @@ class Sudoku
       for col in grid[row].indices
       {
         var isOK: Bool = false
+        var counter: Int = 0
         while(!isOK){
           let number = list.randomElement()
           if(validate(row, col, number!))
@@ -30,10 +31,14 @@ class Sudoku
             isOK = true
             list.remove(at: list.firstIndex(of: number!)!)
           }
-          else if (row != 0) && (col == 8)
+          else if (counter > (list.count + 3)) && col != 0
           {
             list.insert(grid[row][col-1])
             grid[row][col-1] = 0
+            counter = 0
+          }
+          else{
+            counter += 1
           }
         }
       }
