@@ -4,8 +4,11 @@ class Sudoku
 
   init()
   {
-    self.grid = Array(repeating: Array(repeating: 0, count: 9), count: 9)
-    generate()
+    repeat
+    {
+      self.grid = Array(repeating: Array(repeating: 0, count: 9), count: 9)
+    }
+    while !generate()
   }
 
   func show()
@@ -13,7 +16,7 @@ class Sudoku
     print(grid)
   }
 
-  func generate()
+  func generate() -> Bool
   {
     for row in grid.indices
     {
@@ -37,14 +40,26 @@ class Sudoku
             {
               if grid[row][col-2] == 0 && col > 2
               {
+                if grid[row][col-3] == 0
+                {
+                  return false
+                }
                 list.insert(grid[row][col-3])
                 grid[row][col-3] = 0
+              }
+              else if grid[row][col-2] == 0 && col == 2
+              {
+                return false
               }
               else
               {
                 list.insert(grid[row][col-2])
                 grid[row][col-2] = 0
               }
+            }
+            else if grid[row][col-1] == 0 && col == 1
+            {
+              return false
             }
             else
             {
@@ -53,6 +68,10 @@ class Sudoku
             }
             counter = 0
           }
+          else if (counter > (list.count * 2)) && row == 8
+          {
+            return false
+          }
           else{
             counter += 1
           }
@@ -60,6 +79,7 @@ class Sudoku
       }
       print(grid[row]) //tmp
     }
+    return true
   }
 
   func validate(_ row: Int, _ col: Int, _ number: Int) -> Bool
