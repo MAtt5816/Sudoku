@@ -17,7 +17,7 @@ class Sudoku
   {
     for row in grid.indices
     {
-      var list = [Int](1...9)
+      var list = Set<Int>(1...9)
       for col in grid[row].indices
       {
         var isOK: Bool = false
@@ -29,6 +29,11 @@ class Sudoku
             print(number!) //tmp
             isOK = true
             list.remove(at: list.firstIndex(of: number!)!)
+          }
+          else if (row != 0) && (col == 8)
+          {
+            list.insert(grid[row][col-1])
+            grid[row][col-1] = 0
           }
         }
       }
