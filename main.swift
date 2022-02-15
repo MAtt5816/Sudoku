@@ -30,7 +30,6 @@ class Sudoku
           if(validate(row, col, number!))
           {
             grid[row][col] = number!
-            print(number!) //tmp
             isOK = true
             list.remove(at: list.firstIndex(of: number!)!)
           }
@@ -77,7 +76,6 @@ class Sudoku
           }
         }
       }
-      print(grid[row]) //tmp
     }
     return true
   }
