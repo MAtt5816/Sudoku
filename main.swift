@@ -4,11 +4,22 @@ class Sudoku
 
   init()
   {
-    repeat
+    var (arr, isOK): ([[Int]]?, Bool) = (nil, false)
+    while !isOK
     {
-      self.grid = Array(repeating: Array(repeating: 0, count: 9), count: 9)
+      repeat
+      {
+        self.grid = Array(repeating: Array(repeating: 0, count: 9), count: 9)
+      }
+      while !generate()
+      show() //tmp
+      (arr, isOK) = replace_zeros()
+      if isOK
+      {
+        grid = arr!
+      }
     }
-    while !generate()
+    //self.grid = replace_zeros() ?? grid
   }
 
   func show()
@@ -155,6 +166,49 @@ class Sudoku
     {
       return false
     }
+  }
+
+  func replace_zeros() -> ([[Int]]?, Bool)
+  {
+    let list = Set<Int>(1...9)
+    var arr = grid
+    for row in arr.indices
+    {
+      while arr[row].contains(0)
+      {
+        let tmp_set = Array(list.subtracting(Set<Int>(arr[row])))
+        let col = arr[row].firstIndex(of: 0)!
+        var ok: Bool = false
+        var counter: Int = 0
+        while !ok && (counter <= (tmp_set.count-1))
+        {
+      //    tmp_set = tmp_set.shuffled()
+          for i in tmp_set
+          {
+            if !validate(row, col, i)
+            {
+              if tmp_set.count == 1
+              {
+                return (nil, false)
+              }
+              counter += 1
+              continue
+            }
+            else
+            {
+              arr[row][col] = i
+              ok = true
+              break
+            }
+          }
+        }
+        if (counter > (tmp_set.count-1))
+        {
+          return (nil, false)
+        }
+      }
+    }
+    return (arr, true)
   }  
 }
 
