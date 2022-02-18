@@ -179,8 +179,7 @@ class Sudoku
         let tmp_set = Array(list.subtracting(Set<Int>(arr[row])))
         let col = arr[row].firstIndex(of: 0)!
         var ok: Bool = false
-        var counter: Int = 0
-        while !ok && (counter <= (tmp_set.count-1))
+        while !ok
         {
       //    tmp_set = tmp_set.shuffled()
           for i in tmp_set
@@ -191,7 +190,6 @@ class Sudoku
               {
                 return (nil, false)
               }
-              counter += 1
               continue
             }
             else
@@ -201,10 +199,10 @@ class Sudoku
               break
             }
           }
-        }
-        if (counter > (tmp_set.count-1))
-        {
-          return (nil, false)
+          if !ok
+          {
+            return (nil, false)
+          }
         }
       }
     }
