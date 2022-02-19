@@ -38,7 +38,7 @@ class Sudoku
         var counter: Int = 0
         while(!isOK){
           let number = list.randomElement()
-          if(validate(row, col, number!))
+          if(validate(row, col, number!, grid))
           {
             grid[row][col] = number!
             isOK = true
@@ -91,19 +91,19 @@ class Sudoku
     return true
   }
 
-  func validate(_ row: Int, _ col: Int, _ number: Int) -> Bool
+  func validate(_ row: Int, _ col: Int, _ number: Int, _ arr: [[Int]]) -> Bool
   {
-    if(!valid_row(row, number))
+    if(!valid_row(row, number, arr))
     {
       return false
     }
     if(row != 0)
     {
-      if(!valid_col(col, number))
+      if(!valid_col(col, number, arr))
       {
         return false
       }
-      if(!valid_sq(row, col, number))
+      if(!valid_sq(row, col, number, arr))
       {
         return false
       }
@@ -111,9 +111,9 @@ class Sudoku
     return true
   }
 
-  func valid_row(_ row: Int, _ number: Int) -> Bool
+  func valid_row(_ row: Int, _ number: Int, _ arr: [[Int]]) -> Bool
   {
-    var tmp_set = Set<Int>(grid[row])
+    var tmp_set = Set<Int>(arr[row])
     if(tmp_set.insert(number).inserted)
     {
       return true
@@ -124,15 +124,15 @@ class Sudoku
     }
   }
 
-  func valid_col(_ col: Int, _ number: Int) -> Bool
+  func valid_col(_ col: Int, _ number: Int, _ arr: [[Int]]) -> Bool
   {
     for i in 0..<9
     {
-      if(grid[i][col] == 0)
+      if(arr[i][col] == 0)
       {
         break
       }
-      else if(grid[i][col] == number)
+      else if(arr[i][col] == number)
       {
         return false
       }
@@ -140,7 +140,7 @@ class Sudoku
     return true
   }
 
-  func valid_sq(_ row: Int, _ col: Int, _ number: Int) -> Bool
+  func valid_sq(_ row: Int, _ col: Int, _ number: Int, _ arr: [[Int]]) -> Bool
   {
     /*
     Subsquares:
@@ -156,7 +156,7 @@ class Sudoku
     {
       for c in (big_col*3-3)...(big_col*3-1)
       {
-        tmp_set.insert(grid[r][c])
+        tmp_set.insert(arr[r][c])
       }
     }
     if(tmp_set.insert(number).inserted){
@@ -181,7 +181,7 @@ class Sudoku
         var ok: Bool = false
           for i in tmp_set
           {
-            if !validate(row, col, i)
+            if !validate(row, col, i, arr)
             {
               if tmp_set.count == 1
               {
