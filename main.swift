@@ -12,14 +12,12 @@ class Sudoku
         self.grid = Array(repeating: Array(repeating: 0, count: 9), count: 9)
       }
       while !generate()
-      show() //tmp
       (arr, isOK) = replace_zeros()
       if isOK
       {
         grid = arr!
       }
     }
-    //self.grid = replace_zeros() ?? grid
   }
 
   func show()
