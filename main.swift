@@ -81,6 +81,10 @@ class Sudoku
           else if (counter > (list.count * 2)) && row == 8
           {
             return false
+          } 
+          else if (counter > list.count * 3)
+          {
+            return false
           }
           else{
             counter += 1
